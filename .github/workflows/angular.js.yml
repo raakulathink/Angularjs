@@ -5,6 +5,13 @@ name: Node.js CI
 
 on:
   workflow_dispatch
+env:
+  AZURE_WEBAPP_NAME: nodeappservice456    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '6.x'                # set this to the node version to use
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -38,6 +45,9 @@ jobs:
       contents: none
     runs-on: windows-latest
     needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
     - name: Download artifact from build job
