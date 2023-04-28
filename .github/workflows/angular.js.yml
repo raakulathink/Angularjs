@@ -26,3 +26,10 @@ jobs:
     - run: npm ci
     - run: npm install npm -g
     - run: npm run build --if-present
+    
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: node-app
+        path: .
+
